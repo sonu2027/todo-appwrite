@@ -10,7 +10,11 @@ function App() {
 
   async function getFromDB() {
     await service.getPost("").then((data) => {
-      setTotalTask(() => [...data.documents])
+      const x = data.documents
+      if (x.length < 1) {
+        return
+      }
+      setTotalTask((state) => [...x])
       console.log("data.documents or totalTask", data.documents);
       console.log("accesing id: ", data.documents[0]["$id"]);
     })
