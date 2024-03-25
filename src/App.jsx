@@ -12,6 +12,7 @@ function App() {
     await service.getPost("").then((data) => {
       const x = data.documents
       if (x.length < 1) {
+        setTotalTask([])
         return
       }
       setTotalTask((state) => [...x])

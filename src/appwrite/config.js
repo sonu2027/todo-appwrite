@@ -51,7 +51,7 @@ class Service {
         documentId
       );
     } catch (error) {
-      throw error;
+      console.log("Error while deleteing", error);
     }
 
   }
