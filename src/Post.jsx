@@ -1,7 +1,7 @@
 
 import { RiDeleteBin6Line } from "react-icons/ri";
 
-function PostData({ data, deleteTask }) {
+function Post({ data, documentId, deleteTask }) {
   return (
     <div className="flex gap-4 items-center justify-around bg-slate-500 px-2 py-1 rounded-sm w-56">
       <h2
@@ -10,9 +10,9 @@ function PostData({ data, deleteTask }) {
         }}
       >{data}</h2>
       
-      <RiDeleteBin6Line className="text-red-600 text-xl" onClick={()=>deleteTask(data)}/>
+      <RiDeleteBin6Line className="text-red-600 text-xl" onClick={()=>deleteTask(documentId)}/>
     </div>
   )
 }
 
-export default PostData
+export default Post

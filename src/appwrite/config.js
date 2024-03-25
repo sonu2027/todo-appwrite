@@ -14,14 +14,14 @@ class Service {
     this.bucket = new Storage(this.client);
   }
 
-  async createPost({ todoTask, slug }) {
+  async createPost({todoTask}) {
     try {
       return await this.databases.createDocument(
         conf.appwriteDatabaseID,
         conf.appwriteCollectionID,
-        slug,
+        ID.unique(),
         {
-          todoTask,
+          todoTask
         }
       );
     } catch (error) {
@@ -42,13 +42,13 @@ class Service {
     }
   }
 
-  async deleteTask(slug) {
-    console.log("slug in deleteDocument", slug)
+  async deleteTask(documentId) {
+    console.log("slug in deleteDocument", documentId)
     try {
       return await this.databases.deleteDocument(
         conf.appwriteDatabaseID,
         conf.appwriteCollectionID,
-        slug
+        documentId
       );
     } catch (error) {
       throw error;
