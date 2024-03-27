@@ -7,7 +7,7 @@ function Search({totalTask, setTotalTask, getFromDB}) {
     useEffect(()=>{
         // const task=[]
         if(search.length>0){
-            let task=totalTask.filter((e)=>e.todoTask.slice(0, search.length) == search)
+            let task=totalTask.filter((e)=>e.todoTask.slice(0, search.length).toUpperCase() == search.toUpperCase())
             setTotalTask([...task])
         }
         else{
@@ -21,7 +21,7 @@ function Search({totalTask, setTotalTask, getFromDB}) {
                 <input
                 value={search}
                 onChange={(e)=>setSearch(e.target.value)}
-                    placeholder="Search notes" className="focus:outline-none text-white caret-white bg-slate-500 w-11/12 pr-4 pl-2" type="text" />
+                    placeholder="Search notes" className="focus:outline-none text-white caret-white bg-slate-500 w-11/12 pr-4 pl-2 rounded-3xl" type="text" />
             </div>
         </div>
     )

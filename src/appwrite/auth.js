@@ -1,4 +1,4 @@
-import conf from '../conf/conf.js';
+import conf from '../conf.js';
 import { Client, Account, ID } from "appwrite";
 
 
@@ -8,8 +8,8 @@ export class AuthService {
 
     constructor() {
         this.client
-            .setEndpoint(conf.appwriteUrl)
-            .setProject(conf.appwriteProjectId);
+            .setEndpoint(conf.appwriteURL)
+            .setProject(conf.appwriteProjectID);
         this.account = new Account(this.client);
             
     }
@@ -17,12 +17,12 @@ export class AuthService {
     async createAccount({email, password, name}) {
         try {
             const userAccount = await this.account.create(ID.unique(), email, password, name);
-            if (userAccount) {
+            // if (userAccount) {
                 // call another method
-                return this.login({email, password});
-            } else {
-               return  userAccount;
-            }
+                // return this.login({email, password});
+            // } else {
+            //    return  userAccount;
+            // }
         } catch (error) {
             throw error;
         }
@@ -30,9 +30,10 @@ export class AuthService {
 
     async login({email, password}) {
         try {
-            return await this.account.createEmailSession(email, password);
+            // createEmailSession
+            return await this.account.createEmailPasswordSession(email, password);
         } catch (error) {
-            throw error;
+            console.log("Login failed", error);
         }
     }
 
@@ -46,12 +47,20 @@ export class AuthService {
         return null;
     }
 
-    async logout() {
+    // async logout() {
 
+    //     try {
+    //         await this.account.deleteSessions();
+    //     } catch (error) {
+    //         console.log("Appwrite serive :: logout :: error", error);
+    //     }
+    // }
+
+    async logout({email, password}){
         try {
-            await this.account.deleteSessions();
+           return await this.account.deleteSessions()
         } catch (error) {
-            console.log("Appwrite serive :: logout :: error", error);
+            throw error
         }
     }
 }

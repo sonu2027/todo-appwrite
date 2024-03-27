@@ -5,8 +5,12 @@ import { IoIosArrowRoundBack } from "react-icons/io";
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import { useSelector} from "react-redux";
 
 function AddTask() {
+
+    const userData=useSelector((state)=>state.auth.userData)
+    console.log("I am able to access uedaea", userData);
     const [input, setInput] = useState("");
     const [textarea, setTextarea] = useState("");
     const [reqForUpdt, setReqForUpdt]=useState(false)
@@ -47,7 +51,7 @@ function AddTask() {
 
 
     const handleAddTask = async () => {
-        if(reqForUpdt==true){
+        if(reqForUpdt==true && userData!=null){
             await service.deleteTask(documentId)
         }
         if (input.length == 0) {
@@ -82,7 +86,7 @@ function AddTask() {
         }
 
         try {
-            await service.createPost({ todoTask: input, content:textarea });
+            await service.createPost({ todoTask: input, content:textarea, userID:userData });
             setInput("");
             setTextarea("")
             console.log("Task added successfully!");
