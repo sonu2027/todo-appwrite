@@ -5,15 +5,17 @@ import { IoIosArrowRoundBack } from "react-icons/io";
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import { useSelector} from "react-redux";
+import { useSelector } from "react-redux";
+import Login from './Login';
+import LoginSignup from './LoginSignup';
 
 function AddTask() {
 
-    const userData=useSelector((state)=>state.auth.userData)
+    const userData = useSelector((state) => state.auth.userData)
     console.log("I am able to access uedaea", userData);
     const [input, setInput] = useState("");
     const [textarea, setTextarea] = useState("");
-    const [reqForUpdt, setReqForUpdt]=useState(false)
+    const [reqForUpdt, setReqForUpdt] = useState(false)
 
     const handleInputChange = (e) => {
         setInput(e.target.value);
@@ -51,7 +53,7 @@ function AddTask() {
 
 
     const handleAddTask = async () => {
-        if(reqForUpdt==true && userData!=null){
+        if (reqForUpdt == true && userData != null) {
             await service.deleteTask(documentId)
         }
         if (input.length == 0) {
@@ -86,7 +88,7 @@ function AddTask() {
         }
 
         try {
-            await service.createPost({ todoTask: input, content:textarea, userID:userData });
+            await service.createPost({ todoTask: input, content: textarea, userID: userData });
             setInput("");
             setTextarea("")
             console.log("Task added successfully!");
@@ -96,44 +98,53 @@ function AddTask() {
     };
 
     return (
-        <div className='flex flex-col gap-y-3 h-screen'>
-            <div className='flex   justify-between w-screen px-4 py-2'>
-                <Link to="/">
-                    <IoIosArrowRoundBack className='text-white text-4xl hover:cursor-pointer' />
-                </Link>
+        <>
+            {
+                userData != null ?
+                <div className='flex flex-col gap-y-3 h-screen'>
+                    <div className='flex   justify-between w-screen px-4 py-2'>
+                        <Link to="/">
+                            <IoIosArrowRoundBack className='text-white text-4xl hover:cursor-pointer' />
+                        </Link>
 
-                <TiTick onClick={handleAddTask} className='hover:cursor-pointer text-white text-4xl' />
-            </div>
+                        <TiTick onClick={handleAddTask} className='hover:cursor-pointer text-white text-4xl' />
+                    </div>
 
-            <div className='flex flex-col pl-3 gap-y-4 h-full'>
-                <input
-                    className='focus:outline-none pl-1 bg-slate-900 caret-white
+                    <div className='flex flex-col pl-3 gap-y-4 h-full'>
+                        <input
+                            className='focus:outline-none pl-1 bg-slate-900 caret-white
                     text-white
                     text-2xl'
-                    onChange={handleInputChange}
-                    value={input}
-                    type="text"
-                    placeholder='Title'
-                />
+                            onChange={handleInputChange}
+                            value={input}
+                            type="text"
+                            placeholder='Title'
+                        />
 
 
-                <textarea
-                    placeholder='Start typing'
+                        <textarea
+                            placeholder='Start typing'
 
-                    className='bg-slate-900 caret-white pl-1 text-white resize-none focus:outline-none
+                            className='bg-slate-900 caret-white pl-1 text-white resize-none focus:outline-none
                     '
-                    style={{
-                        msOverflowStyle: "none",
-                        scrollbarWidth: "none"
-                    }}
+                            style={{
+                                msOverflowStyle: "none",
+                                scrollbarWidth: "none"
+                            }}
 
-                    onChange={handleTextareaChange}
-                    value={textarea}
-                    name="" id="" cols="30" rows="20">
-                </textarea>
+                            onChange={handleTextareaChange}
+                            value={textarea}
+                            name="" id="" cols="30" rows="20">
+                        </textarea>
 
-            </div>
-        </div>
+                    </div>
+                </div>
+                :
+                <>
+                <LoginSignup/>
+                </>
+            }
+        </>
     );
 }
 

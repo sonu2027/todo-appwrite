@@ -29,6 +29,8 @@ function Login({ setLoginStatus }) {
         }
         await authService.login({ email, password })
             .then((res) => {
+                setEmail("")
+                setPassword("")
                 dispatch(login(res.userId))
                 console.log("Status for login is: ", res, res.userId);
             })
