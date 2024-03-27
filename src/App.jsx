@@ -16,6 +16,9 @@ function App() {
   const [totalTask, setTotalTask] = useState({})
 
   async function getFromDB() {
+    if (userData == null) {
+      return
+    }
     await service.getPost("").then((data) => {
       let x = data.documents
       if (x.length < 1) {
@@ -42,16 +45,17 @@ function App() {
     getFromDB()
   }
 
-  const dispatch=useDispatch()
+  const dispatch = useDispatch()
 
   return (
+    userData != null &&
     <div className="h-screen w-screen">
       <Search totalTask={totalTask} setTotalTask={setTotalTask} getFromDB={getFromDB} />
       <Link to="/addtask">
         <IoMdAddCircle className='text-yellow-400 text-4xl fixed bottom-8 right-8 ' />
       </Link>
 
-      <button onClick={()=>dispatch(logout())} className='bg-red-500 rounded-sm px-2 py-1 fixed right-8 top-14 text-white'>Logout</button>
+      <button onClick={() => dispatch(logout())} className='bg-red-500 rounded-sm px-2 py-1 fixed right-8 top-14 text-white'>Logout</button>
 
       {
         totalTask.length > 0 &&

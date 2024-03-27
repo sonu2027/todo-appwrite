@@ -3,6 +3,7 @@ import authService from './appwrite/auth'
 import App from './App'
 import { login } from './store/authSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import { FaRegCircleXmark } from "react-icons/fa6";
 
 function Login({ setLoginStatus }) {
 
@@ -14,11 +15,32 @@ function Login({ setLoginStatus }) {
     const userData = useSelector((s) => s.auth.userData)
     console.log("status and userid in login ", status, userData);
 
-    const handleLogin = async() => {
-        await authService.login({ email, password }).then((res) => {
-            dispatch(login(res.userId))
-            console.log("Status for login is: ", res, res.userId);
-        })
+    const [loginRes, setLoginRes] = useState([true, ""])
+
+    const handleLogin = async () => {
+        if (email.length < 1 || password.length < 1) {
+            setEmail("")
+            setPassword("")
+            setLoginRes([false, "Input filed should not be empty"])
+            setTimeout(() => {
+                setLoginRes([true, ""])
+            }, 3000)
+            return
+        }
+        await authService.login({ email, password })
+            .then((res) => {
+                dispatch(login(res.userId))
+                console.log("Status for login is: ", res, res.userId);
+            })
+            .catch((error) => {
+                setLoginRes([false, "Wrong email and password"])
+                setEmail("")
+                setPassword("")
+                setTimeout(() => {
+                    setLoginRes([true, ""])
+                }, 3000)
+                console.log("Login Failed", error);
+            })
     }
     return (
         <>
@@ -26,7 +48,16 @@ function Login({ setLoginStatus }) {
                 status ?
                     <App />
                     :
-                    <div className='flex justify-center items-center h-screen'>
+                    <div className='flex justify-center items-start pt-24 h-screen'>
+
+                        {
+                            !loginRes[0] &&
+                            <div className='bg-gray-700 px-2 py-1 fixed top-6 right-2 flex justify-between items-center gap-x-2'>
+                                <FaRegCircleXmark className='text-red-500 text-4xl gap-x-2 rounded-full' />
+                                <div className=' text-white text-2xl '>{loginRes[1]}</div>
+                            </div>
+                        }
+
                         <div className='bg-white px-4 py-5 rounded-sm'>
 
                             <div className='mb-3 text-3xl text-blue-600'>ToDo</div>
