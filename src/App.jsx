@@ -32,6 +32,7 @@ function App() {
       console.log("data.documents or totalTask", data.documents);
       console.log("craetedAt", date.toLocaleDateString());
       console.log(new Date(data.documents[0]["$createdAt"]).toLocaleDateString());
+      console.log(new Date(data.documents[0]["$createdAt"]).toLocaleTimeString());
       console.log("accesing id: ", data.documents[0]["$id"]);
     })
   }
@@ -55,14 +56,14 @@ function App() {
         <IoMdAddCircle className='text-yellow-400 text-4xl fixed bottom-8 right-8 ' />
       </Link>
 
-      <button onClick={() => dispatch(logout())} className='bg-red-500 rounded-sm px-2 py-1 fixed right-8 top-14 text-white'>Logout</button>
+      <button onClick={() => dispatch(logout())} className='bg-red-500 rounded-sm px-2 py-1 fixed right-8 top-4 text-white hidden sm:block'>Logout</button>
 
       {
         totalTask.length > 0 &&
         <div className="flex justify-center pb-6 md:mt-0 mt-8">
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
             {totalTask.map((e) =>
-              <Post key={e["$id"]} data={[e.todoTask, e.content]} documentId={e["$id"]} deleteTask={deleteTask} date={new Date(e["$createdAt"]).toLocaleDateString()} />
+              <Post key={e["$id"]} data={[e.todoTask, e.content]} documentId={e["$id"]} deleteTask={deleteTask} date={new Date(e["$createdAt"]).toLocaleDateString()} time={new Date(e["$createdAt"]).toLocaleTimeString()} />
             )}
           </div>
         </div>
