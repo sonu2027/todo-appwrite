@@ -6,7 +6,7 @@ import { RxCross1 } from "react-icons/rx";
 import { useDispatch } from 'react-redux';
 import { logout } from './store/authSlice';
 
-function Search({ totalTask, setTotalTask, getFromDB }) {
+function Search({handleLogout, totalTask, setTotalTask, getFromDB }) {
     const [search, setSearch] = useState("")
     const [showBarItem, setShowBarItem] = useState(false)
     const dispatch = useDispatch()
@@ -34,7 +34,7 @@ function Search({ totalTask, setTotalTask, getFromDB }) {
 
                         <li className='text-black text-center w-full list-none border-x-0 border-b-0 border-gray-400 border-2 border-solid py-1'>Update Password</li>
 
-                        <li onClick={() => dispatch(logout())} className='text-black text-center w-full list-none border-x-0 border-gray-400 border-2 border-solid py-1'>Logout</li>
+                        <li onClick={handleLogout} className='text-black text-center w-full list-none border-x-0 border-gray-400 border-2 border-solid py-1'>Logout</li>
                     </ul>
                 </div>
             }

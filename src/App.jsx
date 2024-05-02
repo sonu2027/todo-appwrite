@@ -64,7 +64,7 @@ function App() {
   return (
     userData != null &&
     <div className="h-screen w-screen">
-      <Search totalTask={totalTask} setTotalTask={setTotalTask} getFromDB={getFromDB} />
+      <Search handleLogout={handleLogout} totalTask={totalTask} setTotalTask={setTotalTask} getFromDB={getFromDB} />
       <Link to="/addtask">
         <IoMdAddCircle className='text-yellow-400 text-4xl fixed bottom-8 right-8 ' />
       </Link>
