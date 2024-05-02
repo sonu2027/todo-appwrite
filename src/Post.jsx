@@ -16,14 +16,13 @@ function Post({ data, documentId, deleteTask, date, time }) {
     <div className="flex flex-col gap-1 items-center justify-around bg-slate-800 px-3 py-2 rounded-md mt-2 w-40 custom-sm:w-44">
 
       {
-        // className="bg-white fixed left-1/2 top-1/2 rounded-sm px-4 py-2"
         deletee &&
-        <div className="h-screen w-screen flex fixed justify-center items-center ">
-          <div className="bg-white rounded-sm px-4 py-2 fixed top-1/3 left-1/4">
+        <div className="h-screen w-screen flex justify-center items-center fixed top-0 ">
+          <div className="flex flex-col rounded-md border-gray-300 shadow-lg border-2 justify-center items-center bg-white gap-y-4 py-2 px-4">
             <div className="text-center text-red-500">Delete Task</div>
-            <div className="py-2">
-              <button className="px-2 bg-gray-300 rounded-sm mr-1 hover:cursor-pointer" onClick={handleDelete}>Cancel</button>
-              <button className="px-2 text-white bg-red-500 rounded-sm ml-1 hover:cursor-pointer" onClick={() => deleteTask(documentId)}>Delete</button>
+            <div className="flex gap-x-4">
+              <button className="bg-gray-200 rounded-md px-2 py-1" onClick={handleDelete}>Cancel</button>
+              <button className="bg-red-500 rounded-md px-2 py-1" onClick={() => deleteTask(documentId)}>Delete</button>
             </div>
           </div>
         </div>

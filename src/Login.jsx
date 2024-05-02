@@ -13,6 +13,7 @@ function Login({ setLoginStatus }) {
     const dispatch = useDispatch();
     const status = useSelector((s) => s.auth.status)
     const userData = useSelector((s) => s.auth.userData)
+    const sessionId = useSelector((s) => s.auth.sessionId)
     console.log("status and userid in login ", status, userData);
 
     const [loginRes, setLoginRes] = useState([true, ""])
@@ -31,7 +32,7 @@ function Login({ setLoginStatus }) {
             .then((res) => {
                 setEmail("")
                 setPassword("")
-                dispatch(login(res.userId))
+                dispatch(login({userId:res.userId, sessionId:res.$id}))
                 console.log("Status for login is: ", res, res.userId);
             })
             .catch((error) => {

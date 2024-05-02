@@ -59,9 +59,9 @@ export class AuthService {
   //     }
   // }
 
-  async logout({ email, password }) {
+  async logout(sessionId) {
     try {
-      return await this.account.deleteSessions();
+      return await this.account.deleteSessions(sessionId);
     } catch (error) {
       throw error;
     }

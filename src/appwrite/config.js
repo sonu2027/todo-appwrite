@@ -14,16 +14,16 @@ class Service {
     this.bucket = new Storage(this.client);
   }
 
-  async createPost({todoTask, content, userID}) {
+  async createPost({title, content, userId}) {
     try {
       return await this.databases.createDocument(
         conf.appwriteDatabaseID,
         conf.appwriteCollectionID,
         ID.unique(),
         {
-          todoTask,
+          title,
           content,
-          userID
+          userId
         }
       );
     } catch (error) {

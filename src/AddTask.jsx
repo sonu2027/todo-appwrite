@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useSelector } from "react-redux";
-import Login from './Login';
 import LoginSignup from './LoginSignup';
 
 function AddTask() {
@@ -37,7 +36,7 @@ function AddTask() {
 
             data.documents.map((e) => {
                 if (e["$id"] == documentId) {
-                    setInput(e.todoTask)
+                    setInput(e.title)
                     setTextarea(e.content)
                     setReqForUpdt(true)
                 }
@@ -88,7 +87,7 @@ function AddTask() {
         }
 
         try {
-            await service.createPost({ todoTask: input, content: textarea, userID: userData });
+            await service.createPost({ title: input, content: textarea, userId: userData });
             setInput("");
             setTextarea("")
             console.log("Task added successfully!");
