@@ -52,7 +52,11 @@ function App() {
 
   const handleLogout=async()=>{
     try{
-      const res2=await authService.logout(sessionId)
+      const currentUser=await authService.getCurrentUser()
+      console.log("currentUser: ", currentUser);
+      // const res1=await authService.logout(sessionId)
+      // console.log("res for logout: ", res1);
+      const res2=await authService.logout(currentUser.$id)
       console.log("res for logout: ", res2);
       dispatch(logout())
     }
